@@ -1,0 +1,66 @@
+{
+  "name": "incident-management",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@sap-cloud-sdk/connectivity": "^3.26.4",
+    "@sap-cloud-sdk/http-client": "^3.26.4",
+    "@sap-cloud-sdk/resilience": "^3.26.4",
+    "@sap-cloud-sdk/util": "^3.26.4",
+    "@sap/cds": "^10"
+  },
+  "devDependencies": {
+    "@cap-js/cds-test": "^1.0.2",
+    "@cap-js/sqlite": "^3",
+    "axios": "^1.20.0",
+    "cds-plugin-ui5": "^0.17.0",
+    "chai": "^6.3.0",
+    "chai-as-promised": "^8.0.0",
+    "chai-subset": "^1.6.0",
+    "jest": "^30.5.2"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest test/test.js",
+    "watch-incidentes": "cds watch --open ns.incidentes/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-incidents": "cds watch --open incidents/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "cds": {
+    "requires": {
+      "[development]": {
+        "auth": {
+          "kind": "mocked",
+          "users": {
+            "alice": {
+              "roles": [
+                "support"
+              ]
+            },
+            "bob": {
+              "roles": [
+                "admin"
+              ]
+            },
+            "incident.support@tester.sap.com": {
+              "password": "initial",
+              "roles": [
+                "support"
+              ]
+            }
+          }
+        }
+      },
+      "API_BUSINESS_PARTNER": {
+        "kind": "odata-v2",
+        "model": "srv/external/API_BUSINESS_PARTNER"
+      }
+    }
+  },
+  "private": true,
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/incidentes"
+  ]
+}
